@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express(),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser')
+    userRoutes = require('./routes/users')();
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
@@ -11,6 +12,8 @@ app.use(function(req,res,next){
     res.setHeader("Access-Control-Allow-Credentials", true);
     next();
 });
+
+app.use(userRoutes);
 
 app.get("/",function(req,res){
     res.send({
