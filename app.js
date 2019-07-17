@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    db = require('./mongoose-db'),
     userRoutes = require('./routes/users')();
 
 app.use(bodyParser.urlencoded({extended : true}));

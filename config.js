@@ -5,7 +5,8 @@ var email = {
 };
 
 var mongodb = {
-    url : '',
+    url : 'mongodb://localhost:27017/',
+    db : 'boilerPlate',
     user : '',
     password : ''
 };
