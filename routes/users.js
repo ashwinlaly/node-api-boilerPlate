@@ -1,10 +1,12 @@
 var express = require('express'),
+    mailer = require('../email'),
     userRoutes = express.Router();
 
 var route = () => {
 
     userRoutes.route("/user")
         .get((req,res) => {
+            //mailer('ashwinlaly@gmail.com','hello','hi');
             res.send({
                 message : "Hey",
                 status : 200
