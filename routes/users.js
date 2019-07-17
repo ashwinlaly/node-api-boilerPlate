@@ -1,5 +1,5 @@
 var express = require('express'),
-userRoutes = express.Router();
+    userRoutes = express.Router();
 
 var route = () => {
 
