@@ -14,7 +14,6 @@ app.use(function(req,res,next){
     next();
 });
 
-db.connect();
 app.use(userRoutes);
 
 app.get("/",function(req,res){
