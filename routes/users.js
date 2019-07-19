@@ -1,12 +1,16 @@
 var express = require('express'),
     mailer = require('../email'),
+    mongo = require('../mongodb'),
     userRoutes = express.Router();
 
 var route = () => {
 
     userRoutes.route("/user")
         .get((req,res) => {
-            //mailer('ashwinlaly@gmail.com','hello','hi');
+            mongo.get().collection('people').find({}).toArray()
+            .then((users) => {
+                    console.log('Users', users);
+                });
             res.send({
                 message : "Hey",
                 status : 200

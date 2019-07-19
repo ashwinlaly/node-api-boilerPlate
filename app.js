@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    db = require('./mongodb'),
     userRoutes = require('./routes/users')();
 
 app.use(bodyParser.urlencoded({extended : true}));
@@ -13,6 +14,7 @@ app.use(function(req,res,next){
     next();
 });
 
+db.connect();
 app.use(userRoutes);
 
 app.get("/",function(req,res){
@@ -22,5 +24,6 @@ app.get("/",function(req,res){
 });
 
 app.listen(1212,function(){
+    db.connect();
     console.log("App Started");
 });
