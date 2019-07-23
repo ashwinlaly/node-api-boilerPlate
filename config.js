@@ -5,7 +5,7 @@ var email = {
 };
 
 var mongodb = {
-    url : 'mongodb://localhost:27017/',
+    url : 'mongodb://localhost:27013/test?replicaSet=rs',
     db : 'test',
     user : '',
     password : ''
