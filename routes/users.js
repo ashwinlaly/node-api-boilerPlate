@@ -7,7 +7,7 @@ var route = () => {
 
     userRoutes.route("/user")
         .get((req,res) => {
-            mongo.get().collection('people').find({}).toArray()
+            mongo.get().collection('users').find({}).toArray()
             .then((users) => {
                     console.log('Users', users);
                 });

@@ -1,9 +1,12 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    http = require('http').Server(app),
+    io = require('socket.io')(http)
     db = require('./mongodb'),
     userRoutes = require('./routes/users')();
-    
+
+let Socket;
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
@@ -30,16 +33,28 @@ app.get("/",function(req,res){
     });
 });
 
+io.on('connection',(socket) => {
+    console.log("connected");
+    Socket = socket;
+    // socket.on('test', (data) => {
+    //     socket.emit('send', ({ message : data }));
+    // });
+});
+
 db.connect(er => {
     if(er) {
 
     }
-    const s = db.get().collection('users')
-    const cs = s.watch();
-    cs.on('change',next =>{
-        console.log(next);
+    const usersStream = db.get().collection('users')
+    const users = usersStream.watch();
+    users.on('change',next =>{
+        id = next.documentKey._id;
+        db.get().collection('users').find({_id: id}).toArray()
+        .then((users) => {
+            Socket.emit('send', users);
+        });
     });
-    app.listen(1212,function(){   
+    http.listen(1212,function(){   
         console.log("App Started");
     });
 });
